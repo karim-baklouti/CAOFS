@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fastapi-multi-pod
+  labels:
+    app: fastapi
+    version: v2
+spec:
+  containers:
+  - name: fastapi
+    image: username/fastapi-users:v2
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 8000
+      name: http
+  - name: metrics-collector
+    image: busybox:1.36
+    command: ["/bin/sh"]
+    args:
+    - -c
+    - |
+      echo "Metrics collector started"
+      while true; do
+        echo "=== Metrics Report $(date) ==="
+        echo "Fetching user count..."
+        wget -q -O- http://localhost:8000/users 2>/dev/null | wc -c
+        echo "---"
+        sleep 15
+      done

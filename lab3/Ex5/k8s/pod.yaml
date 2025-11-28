@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fastapi-secrets-pod
+  labels:
+    app: fastapi
+    version: v5
+spec:
+  containers:
+  - name: fastapi
+    image: username/fastapi-users:v4
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 8000
+      name: http
+    
+    # Load secrets as environment variables
+    env:
+    - name: API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: fastapi-secrets
+          key: API_KEY
+    - name: DB_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: fastapi-secrets
+          key: DB_PASSWORD
+    - name: JWT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: fastapi-secrets
+          key: JWT_SECRET

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fastapi-configmap-pod
+  labels:
+    app: fastapi
+    version: v4
+spec:
+  containers:
+  - name: fastapi
+    image: username/fastapi-users:v3
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 8000
+      name: http
+    
+    # Load all ConfigMap data as environment variables
+    envFrom:
+    - configMapRef:
+        name: fastapi-config
+    
+    # Load specific keys as environment variables
+    env:
+    - name: CUSTOM_MESSAGE
+      valueFrom:
+        configMapKeyRef:
+          name: fastapi-config
+          key: APP_NAME
+    
