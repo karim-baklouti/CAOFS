@@ -51,7 +51,7 @@ def create_user(user: User):
     global user_id_counter
     if len(users) >= MAX_USERS:
         raise HTTPException(status_code=400, detail=f"Maximum users limit ({MAX_USERS}) reached")
-    user_data = user.dict()
+    user_data = user.model_dump()
     user_data["id"] = user_id_counter
     users[user_id_counter] = user_data
     logger.info(f"Created user: {user_data}")
