@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fastapi-config
+data:
+  APP_NAME: "User Management System"
+  APP_VERSION: "4.0"
+  MAX_USERS: "75"
+  DEBUG_MODE: "false"
