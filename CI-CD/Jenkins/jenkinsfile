@@ -6,7 +6,6 @@ pipeline {
         BUILD_NUMBER = "1.0.0"
     }
     stages {
-       
         stage('SCM Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/karim-baklouti/CAOFS.git'
