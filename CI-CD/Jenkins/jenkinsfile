@@ -5,6 +5,7 @@ pipeline {
         APP_NAME = "$DOCKERHUB_USR/fastapi-users"
         BUILD_NUMBER = "1.0.0"
     }
+    
     stages {
         stage('SCM Checkout') {
             steps {
